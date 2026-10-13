@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Muestra Anual 2026 · Artes Multimediales 1</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Design Tokens ─────────────────────────────────────────── */
+    :root {
+      --bg-primary:    #ffffff;
+      --bg-secondary:  #f5f5f5;
+      --bg-card:       #fafafa;
+      --text-primary:  #1a1a1a;
+      --text-secondary:#555555;
+      --text-muted:    #888888;
+      --accent:        #2d2d2d;
+      --accent-hover:  #000000;
+      --border:        #e0e0e0;
+      --border-card:   #ebebeb;
+      --radius-soft:   12px;
+      --shadow-subtle: 0 1px 3px 0 rgb(0 0 0 / 0.06), 0 1px 2px -1px rgb(0 0 0 / 0.06);
+      --shadow-card:   0 4px 16px -4px rgb(0 0 0 / 0.08);
+      --transition:    0.2s ease;
+    }
+
+    [data-theme="dark"] {
+      --bg-primary:    #0e0e0f;
+      --bg-secondary:  #161617;
+      --bg-card:       #1a1a1c;
+      --text-primary:  #f0f0f0;
+      --text-secondary:#aaaaaa;
+      --text-muted:    #666666;
+      --accent:        #e0e0e0;
+      --accent-hover:  #ffffff;
+      --border:        #2a2a2d;
+      --border-card:   #242427;
+      --shadow-subtle: 0 1px 3px 0 rgb(0 0 0 / 0.3);
+      --shadow-card:   0 4px 16px -4px rgb(0 0 0 / 0.4);
+    }
+
+    /* ── Reset & Base ─────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      transition: background-color var(--transition), color var(--transition);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── Layout ───────────────────────────────────────────────── */
+    .container {
+      width: 100%;
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 0 28px;
+    }
+
+    /* ── Header ───────────────────────────────────────────────── */
+    header {
+      border-bottom: 1px solid var(--border);
+      padding: 48px 0 40px;
+    }
+
+    .header-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 24px;
+    }
+
+    .header-meta {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+    }
+
+    header h1 {
+      font-size: clamp(1.4rem, 4vw, 2rem);
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      color: var(--text-primary);
+    }
+
+    header h1 span {
+      display: block;
+      font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+      font-weight: 300;
+      color: var(--text-secondary);
+      margin-top: 6px;
+      letter-spacing: 0;
+    }
+
+    /* ── Theme Toggle ─────────────────────────────────────────── */
+    .theme-toggle {
+      flex-shrink: 0;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      padding: 8px 14px;
+      min-width: 118px;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 13px;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all var(--transition);
+      margin-top: 4px;
+      user-select: none;
+    }
+
+    .theme-toggle:hover {
+      background: var(--border);
+      color: var(--text-primary);
+    }
+
+    /* ── Main & Showcase Grid ─────────────────────────────────── */
+    main {
+      flex: 1;
+      padding: 48px 0 80px;
+    }
+
+    .showcase-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 36px;
+      align-items: start;
+    }
+
+    /* ── Section ──────────────────────────────────────────────── */
+    .tp-section {
+      margin-bottom: 0;
+      min-width: 0;
+      display: grid;
+      grid-template-rows: subgrid;
+      grid-row: span 3;
+    }
+
+    .tp-section:last-child {
+      margin-bottom: 0;
+    }
+
+    .tp-header {
+      margin-bottom: 0;
+    }
+
+    .tp-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .tp-title {
+      font-size: clamp(1.05rem, 2.5vw, 1.25rem);
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: var(--text-primary);
+      line-height: 1.3;
+    }
+
+    .tp-consigna {
+      font-size: 13.5px;
+      line-height: 1.7;
+      color: var(--text-secondary);
+      margin-top: 4px;
+      margin-bottom: 8px;
+      padding: 14px 18px;
+      border-left: 2px solid var(--border);
+      font-weight: 300;
+    }
+
+    /* ── Work Cards ───────────────────────────────────────────── */
+    .works-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .work-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin-bottom: 3px;
+      transition: margin-bottom 0.3s ease;
+    }
+
+    .work-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .work-item.is-expanded {
+      margin-bottom: 24px;
+    }
+
+    .work-synopsis-wrapper {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .work-item.is-expanded .work-synopsis-wrapper {
+      grid-template-rows: 1fr;
+    }
+
+    .work-synopsis-inner {
+      overflow: hidden;
+    }
+
+    .work-item .work-synopsis {
+      margin-top: 10px;
+      width: 95%;
+      max-width: 95%;
+      padding-left: 18px;
+      padding-right: 15px;
+      box-sizing: border-box;
+      opacity: 0;
+      transform: translateY(-6px);
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+
+    .work-item.is-expanded .work-synopsis {
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: 0.08s;
+    }
+
+    .work-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 15px 18px;
+      min-height: 74px;
+      box-sizing: border-box;
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-soft);
+      background: var(--bg-card);
+      text-decoration: none;
+      transition: all var(--transition);
+      group: true;
+    }
+
+    .work-card:hover {
+      border-color: var(--text-muted);
+      background: var(--bg-secondary);
+      transform: translateX(3px);
+      box-shadow: var(--shadow-card);
+    }
+
+    .work-card-body {
+      min-width: 0;
+    }
+
+    .work-title {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--text-primary);
+      line-height: 1.35;
+      transition: color var(--transition);
+    }
+
+    .work-card:hover .work-title {
+      color: var(--accent-hover);
+    }
+
+    .work-students {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 4px;
+      font-weight: 400;
+    }
+
+    .work-synopsis {
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-top: 7px;
+      font-weight: 300;
+      line-height: 1.6;
+    }
+
+    .synopsis-link {
+      color: var(--text-primary);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      text-decoration-color: var(--border);
+      transition: text-decoration-color var(--transition);
+    }
+
+    .synopsis-link:hover {
+      text-decoration-color: var(--text-primary);
+    }
+
+    .work-arrow {
+      flex-shrink: 0;
+      width: 18px;
+      height: 18px;
+      color: var(--text-muted);
+      transition: all var(--transition);
+      opacity: 0.5;
+    }
+
+    .work-card:hover .work-arrow {
+      opacity: 1;
+      color: var(--text-primary);
+      transform: translate(2px, -2px);
+    }
+
+    /* ── Footer ───────────────────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 28px 0;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    footer p {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    footer strong {
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+
+    /* ── Responsive ───────────────────────────────────────────── */
+    @media (max-width: 860px) {
+      .showcase-grid {
+        grid-template-columns: 1fr;
+        gap: 56px;
+      }
+      .tp-section {
+        display: flex;
+        flex-direction: column;
+        grid-row: auto;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container { padding: 0 16px; }
+      .header-inner { flex-direction: column; align-items: flex-start; }
+      .theme-toggle { align-self: flex-end; }
+      .work-card { padding: 14px 15px; }
+      .work-item .work-synopsis { padding-left: 15px; }
+    }
+
+    /* ── Section Color Accents ─────────────────────────────────── */
+    .tp1 .tp-label        { color: #3b82f6; }
+    .tp2 .tp-label        { color: #8b5cf6; }
+    .tp1 .tp-consigna     { border-left-color: rgba(59, 130, 246, 0.5); }
+    .tp2 .tp-consigna     { border-left-color: rgba(139, 92, 246, 0.5); }
+
+    /* ── TP1 Blue Cards ────────────────────────────────────────── */
+    .tp1 .work-card {
+      border: 1px solid rgba(59, 130, 246, 0.38);
+      background: rgba(59, 130, 246, 0.06);
+    }
+    .tp1 .work-card:hover {
+      border-color: rgba(59, 130, 246, 0.75);
+      background: rgba(59, 130, 246, 0.12);
+      box-shadow: 0 4px 20px -4px rgba(59, 130, 246, 0.22);
+    }
+    .tp1 .work-card:hover .work-title { color: #3b82f6; }
+    .tp1 .work-card:hover .work-arrow { color: #3b82f6; opacity: 1; }
+    .tp1 .synopsis-link   { color: #3b82f6; text-decoration-color: rgba(59, 130, 246, 0.35); }
+    .tp1 .synopsis-link:hover { text-decoration-color: #3b82f6; }
+
+    /* ── TP2 Violet Cards ──────────────────────────────────────── */
+    .tp2 .work-card {
+      border: 1px solid rgba(139, 92, 246, 0.38);
+      background: rgba(139, 92, 246, 0.06);
+    }
+    .tp2 .work-card:hover {
+      border-color: rgba(139, 92, 246, 0.75);
+      background: rgba(139, 92, 246, 0.12);
+      box-shadow: 0 4px 20px -4px rgba(139, 92, 246, 0.22);
+    }
+    .tp2 .work-card:hover .work-title { color: #8b5cf6; }
+    .tp2 .work-card:hover .work-arrow { color: #8b5cf6; opacity: 1; }
+    .tp2 .synopsis-link   { color: #8b5cf6; text-decoration-color: rgba(139, 92, 246, 0.35); }
+    .tp2 .synopsis-link:hover { text-decoration-color: #8b5cf6; }
+
+    /* Light mode overrides */
+    [data-theme="light"] .tp1 .work-card { border-color: rgba(37, 99, 235, 0.35); background: rgba(37, 99, 235, 0.05); }
+    [data-theme="light"] .tp2 .work-card { border-color: rgba(109, 40, 217, 0.35); background: rgba(109, 40, 217, 0.05); }
+    [data-theme="light"] .tp1 .tp-label  { color: #2563eb; }
+    [data-theme="light"] .tp2 .tp-label  { color: #6d28d9; }
+    [data-theme="light"] .tp1 .synopsis-link { color: #2563eb; }
+    [data-theme="light"] .tp2 .synopsis-link { color: #6d28d9; }
+
+  </style>
+</head>
+<body>
+
+  <!-- ── HEADER ─────────────────────────────────── -->
+  <header>
+    <div class="container">
+      <div class="header-inner">
+        <div>
+          <p class="header-meta">UNA · Depto. Artes Multimediales y Electrónicas · 2026</p>
+          <h1>
+            Muestra Anual 2026
+            <span>Artes Multimediales 1 · Cátedra Pirotta</span>
+          </h1>
+        </div>
+        <button class="theme-toggle" id="theme-btn" onclick="toggleTheme()" aria-label="Cambiar tema">
+          <svg id="theme-icon" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/><circle cx="12" cy="12" r="4"/>
+          </svg>
+          <span id="theme-label">Modo claro</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── MAIN ───────────────────────────────────── -->
+  <main>
+    <div class="container">
+
+      <div class="showcase-grid">
+
+        <!-- TP 1 -->
+        <section class="tp-section tp1">
+        <div class="tp-header">
+          <p class="tp-label">Trabajo Práctico 1</p>
+          <h2 class="tp-title">Desmontaje y Reprogramación del Relato</h2>
+        </div>
+        <p class="tp-consigna">
+          A partir de un cuento/relato breve a elección, realizar una reconfiguración narrativa en clave no-lineal, transformándolo en una estructura hipertextual que habilite múltiples recorridos e incorpore recursos hipermediales (imagen, sonido, video o interacción). El trabajo deberá modificar la experiencia original del relato, proponiendo nuevas formas de navegación, inmersión y participación del lector-usuario.
+        </p>
+        <div class="works-grid">
+
+          <div class="work-item">
+            <a class="work-card" href="https://danajose.github.io/dona_elena_de_la_mancha/" target="_blank" rel="noopener noreferrer">
+              <div class="work-card-body">
+                <p class="work-title">Doña Elena de la Mancha</p>
+                <p class="work-students">Tomás Couto, Dana Galindo Lainez, Nahuel Oscar Pineda, Santiago Nahuel Romero</p>
+              </div>
+              <svg class="work-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M7 17L17 7M17 7H7M17 7v10"/>
+              </svg>
+            </a>
+          </div>
+
+          <div class="work-item">
+            <a class="work-card" href="https://canva.link/deto1sbr2rzptjk" target="_blank" rel="noopener noreferrer">
+              <div class="work-card-body">
+                <p class="work-title">Hansel y Gretel</p>
+                <p class="work-students">Violeta Acuña</p>
+              </div>
+              <svg class="work-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M7 17L17 7M17 7H7M17 7v10"/>
+              </svg>
+            </a>
+          </div>
+
+          <div class="work-item">
+            <a class="work-card" href="https://rfsosa.github.io/TP2Hansel-Gretel/#juego" target="_blank" rel="noopener noreferrer">
+              <div class="work-card-body">
+                <p class="work-title">Hansel y Gretel</p>
+                <p class="work-students">Lucas Martin Fiorentino, Abril Agustina Fuentes, Rocío De Fátima Sosa, Violeta Vallarino</p>
+              </div>
+              <svg class="work-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M7 17L17 7M17 7H7M17 7v10"/>
+              </svg>
+            </a>
+          </div>
+
+          <div class="work-item">
+            <a class="work-card" href="https://www.youtube.com/watch?v=hoBLFADxSrI" target="_blank" rel="noopener noreferrer">
+              <div class="work-card-body">
+                <p class="work-title">Los Tres Chanchitos</p>
+                <p class="work-students">Tiziano Aprea</p>
+              </div>
+              <svg class="work-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M7 17L17 7M17 7H7M17 7v10"/>
+              </svg>
+            </a>
+          </div>
+
+          <div class="work-item">
+            <a class="work-card" href="https://canva.link/5ww3vq1j2krw4v7" target="_blank" rel="noopener noreferrer">
+              <div class="work-card-body">
+                <p class="work-title">Los Tres Chanchitos</p>
+                <p class="work-students">Amelio Cardozo Gill, Felipe Gregoire, Kari Martinez Plinio</p>
+              </div>
+              <svg class="work-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M7 17L17 7M17 7H7M17 7v10"/>
+              </svg>
+            </a>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- TP 2 -->
+      <section class="tp-section tp2">
+        <div class="tp-header">
+          <p class="tp-label">Trabajo Práctico 2</p>
+          <h2 class="tp-title">Reescribiendo el Algoritmo</h2>
+        </div>
+        <p class="tp-consigna">
+          Desarrollar una reversión de una obra de net art a elección a partir de la deducción de su estructura algorítmica y la redefinición de sus dinámicas de interacción, transformando su propuesta conceptual y expresiva mediante la modificación de sus reglas y el uso opcional de herramientas algorítmicas o de inteligencia artificial.
+        </p>
+        <div class="works-grid">
+
+          <div class="work-item" data-collapsible="true">
+            <a class="work-card" href="https://danajose.github.io/mapa_de_aguas/" target="_blank" rel="noopener noreferrer">
+              <div class="work-card-body">
+                <p class="work-title">Aguas de Abya Yala</p>
+                <p class="work-students">Dana Galindo Lainez</p>
+              </div>
+              <svg class="work-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M7 17L17 7M17 7H7M17 7v10"/>
+              </svg>
+            </a>
+            <div class="work-synopsis-wrapper">
+              <div class="work-synopsis-inner">
+                <p class="work-synopsis">El sistema circulatorio vivo de la tierra y la red continental de 94 luchas territoriales en defensa del agua. Inspirado en el experimento <a href="https://lines.chromeexperiments.com/" target="_blank" rel="noopener noreferrer" class="synopsis-link">Land Lines</a> con cartografía satelital continua y sonido reactivo.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="work-item" data-collapsible="true">
+            <a class="work-card" href="https://apreatiziano.github.io/emoji-lines3/" target="_blank" rel="noopener noreferrer">
+              <div class="work-card-body">
+                <p class="work-title">Emoji Lines</p>
+                <p class="work-students">Tiziano Aprea</p>
+              </div>
+              <svg class="work-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M7 17L17 7M17 7H7M17 7v10"/>
+              </svg>
+            </a>
+            <div class="work-synopsis-wrapper">
+              <div class="work-synopsis-inner">
+                <p class="work-synopsis">Versión libre y lúdica inspirada en el experimento <a href="https://lines.chromeexperiments.com/" target="_blank" rel="noopener noreferrer" class="synopsis-link">Land Lines</a>. Desplaza el foco desde la geografía física del planeta hacia la geografía emocional e iconográfica de la red. La reversión convierte el trazo del espectador en una huella colectiva de síntesis pop digital.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="work-item" data-collapsible="true">
+            <a class="work-card" href="https://rfsosa.github.io/AM1-TP3-Play-A-Valentin-Alsina/" target="_blank" rel="noopener noreferrer">
+              <div class="work-card-body">
+                <p class="work-title">Play a Valentín Alsina</p>
+                <p class="work-students">Rocío De Fátima Sosa</p>
+              </div>
+              <svg class="work-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M7 17L17 7M17 7H7M17 7v10"/>
+              </svg>
+            </a>
+            <div class="work-synopsis-wrapper">
+              <div class="work-synopsis-inner">
+                <p class="work-synopsis">Reversión de la obra <a href="https://g.co/arts/jdjahpJhmjqaYUFd7" target="_blank" rel="noopener noreferrer" class="synopsis-link">Play a Kandinsky</a>. Esta reinterpretación traslada la sinestesia abstracta europea hacia el territorio tangible, obrero y afectivo de Valentín Alsina.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="work-item" data-collapsible="true">
+            <a class="work-card" href="https://ame-cg.github.io/Arquitectura-de-la-Palabra/" target="_blank" rel="noopener noreferrer">
+              <div class="work-card-body">
+                <p class="work-title">Arquitectura de la Palabra</p>
+                <p class="work-students">Amelio Cardozo Gill, Kari Martinez Plinio</p>
+              </div>
+              <svg class="work-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M7 17L17 7M17 7H7M17 7v10"/>
+              </svg>
+            </a>
+            <div class="work-synopsis-wrapper">
+              <div class="work-synopsis-inner">
+                <p class="work-synopsis">Inspirada en el experimento <a href="https://lines.chromeexperiments.com/" target="_blank" rel="noopener noreferrer" class="synopsis-link">Land Lines</a>, esta reversión reinterpreta su núcleo algorítmico desplazando el foco desde la topografía del planeta hacia la morfología del lenguaje. La transforma en una herramienta de diseño compositivo y deconstrucción tipográfica, permitiendo al usuario habitar el espacio intermedio entre la imagen visual y el signo escrito.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="work-item" data-collapsible="true">
+            <a class="work-card" href="https://lucasfioren.github.io/tp3-artes-multimediales/" target="_blank" rel="noopener noreferrer">
+              <div class="work-card-body">
+                <p class="work-title">Divergencia Artística</p>
+                <p class="work-students">Lucas Martin Fiorentino, Abril Agustina Fuentes, Violeta Vallarino</p>
+              </div>
+              <svg class="work-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M7 17L17 7M17 7H7M17 7v10"/>
+              </svg>
+            </a>
+            <div class="work-synopsis-wrapper">
+              <div class="work-synopsis-inner">
+                <p class="work-synopsis">Inspirada en la obra <a href="https://marianosardon.com.ar/divergencia/div_esp.htm" target="_blank" rel="noopener noreferrer" class="synopsis-link">Divergencia Diferente de Cero</a>, se presenta como un dispositivo de remezcla e interacción web, convirtiendo la dialéctica de opuestos en un espacio de experimentación estética participativa.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ── FOOTER ─────────────────────────────────── -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <p><strong>Departamento de Artes Multimediales y Electrónicas</strong><br />Universidad Nacional de las Artes · Muestra Anual 2026</p>
+        <p>Cátedra Pirotta</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ── THEME SCRIPT ────────────────────────────── -->
+  <script>
+    const sunIcon = `<path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/><circle cx="12" cy="12" r="4"/>`;
+    const moonIcon = `<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>`;
+
+    const themeBtn = document.getElementById('theme-btn');
+    const themeIcon = document.getElementById('theme-icon');
+    const themeLabel = document.getElementById('theme-label');
+
+    function renderThemeBtn(isHover = false) {
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      if (!isDark) {
+        // En modo claro: normalmente dice "Modo claro" (sol), en hover ofrece cambiar a "Modo oscuro" (luna)
+        themeIcon.innerHTML = isHover ? moonIcon : sunIcon;
+        themeLabel.textContent = isHover ? 'Modo oscuro' : 'Modo claro';
+      } else {
+        // En modo oscuro: normalmente dice "Modo oscuro" (luna), en hover ofrece cambiar a "Modo claro" (sol)
+        themeIcon.innerHTML = isHover ? sunIcon : moonIcon;
+        themeLabel.textContent = isHover ? 'Modo claro' : 'Modo oscuro';
+      }
+    }
+
+    function toggleTheme() {
+      const html = document.documentElement;
+      const isDark = html.getAttribute('data-theme') === 'dark';
+      html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+      renderThemeBtn(true);
+    }
+
+    themeBtn.addEventListener('mouseenter', () => renderThemeBtn(true));
+    themeBtn.addEventListener('mouseleave', () => renderThemeBtn(false));
+
+    // Inicializar botón en estado claro
+    renderThemeBtn(false);
+
+    // Collapsible logic for TP2 cards
+    const collapsibleItems = document.querySelectorAll('[data-collapsible="true"]');
+    collapsibleItems.forEach(item => {
+      const card = item.querySelector('.work-card');
+
+      // Expand on hover / mouseenter, collapse on mouseleave
+      item.addEventListener('mouseenter', () => {
+        item.classList.add('is-expanded');
+      });
+
+      item.addEventListener('mouseleave', () => {
+        item.classList.remove('is-expanded');
+      });
+
+      // On click / tap: toggle state if tapped on card (unless clicking directly on the title link)
+      card.addEventListener('click', (e) => {
+        if (!e.target.closest('.work-title')) {
+          item.classList.toggle('is-expanded');
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
